@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from "@/components/Header";
+import { Box } from "@mui/material";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +28,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Box
+          sx={{
+            position: "fixed",
+            display: "flex",
+            flexDirection: "column",
+            width: "100vw",
+            height: "100vh",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Header />
+          <Box
+            sx={{
+              display: "flex",
+              height: "calc(100% - 65px)",
+              p: "20px",
+              overflowY: "auto",
+            }}
+          >
+            {children}
+          </Box>
+        </Box>
       </body>
     </html>
   );
