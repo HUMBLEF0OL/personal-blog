@@ -5,25 +5,19 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { ArticleData } from "@/interface/article";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-const ArticleCard = () => {
+
+const ArticleCard: React.FC<{ data: ArticleData }> = ({ data }) => {
   return (
-    <Box
+    <Card
       sx={{
         backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
         // rowGap: "4px",
-        width: "256px",
-        height: "240px",
+        width: "245px",
+        height: "185px",
       }}
     >
       <CardContent>
@@ -31,7 +25,7 @@ const ArticleCard = () => {
           gutterBottom
           sx={{ color: "text.secondary", fontSize: 16, fontWeight: 700 }}
         >
-          Author
+          {data.author}
         </Typography>
         <Typography
           variant="body1"
@@ -41,27 +35,24 @@ const ArticleCard = () => {
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",
-            WebkitLineClamp: 4, // Adjust the number based on desired lines within 100px
+            WebkitLineClamp: 2, // Adjust the number based on desired lines within 100px
             WebkitBoxOrient: "vertical",
             color: "text.primary",
           }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam beatae
-          quo eos sed temporibus, placeat ratione voluptatibus architecto illo!
-          Magni eaque ipsam facere tempore atque accusantium sapiente ratione
-          velit tempora!
+          {data.summary}
         </Typography>
         <Typography
           gutterBottom
           sx={{ color: "text.secondary", fontSize: 12, fontWeight: 400 }}
         >
-          04-11-2024
+          {data.date}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Read More</Button>
+        <Button size="small" href={`article/${data.id}`}>Read More</Button>
       </CardActions>
-    </Box>
+    </Card>
   );
 };
 

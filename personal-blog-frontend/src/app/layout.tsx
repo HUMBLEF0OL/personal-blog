@@ -43,9 +43,13 @@ export default function RootLayout({
           <Box
             sx={{
               display: "flex",
+              width: '100%',
               height: "calc(100% - 65px)",
-              p: "20px",
+              py: '20px',
+              px: "40px",
               overflowY: "auto",
+              justifyContent: 'center',
+              mb: '20px'
             }}
           >
             {children}
