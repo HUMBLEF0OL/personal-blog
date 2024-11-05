@@ -1,31 +1,29 @@
 import React from "react";
 import { Box, Typography, Container, Divider } from "@mui/material";
-const page = () => {
+import articleData from '../../../assets/articles.json';
+const page = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+  const articleInfo = articleData.find(current => current.id === id);
+  console.log("id is ", articleInfo)
+
   return (
     <Container maxWidth="md">
       {/* Article Header */}
       <Box sx={{ textAlign: "center", mb: 4 }}>
         <Typography variant="h3" component="h1" gutterBottom>
-          Article Title
+          {articleInfo?.title}
         </Typography>
         <Typography variant="subtitle2" sx={{ color: "primary.main" }}>
-          By Author Name | October 31, 2024
+          By {articleInfo?.author} | {articleInfo?.date}
         </Typography>
       </Box>
 
       {/* Article Content */}
       <Box>
-        <Typography variant="body1" component={"p"}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis
-          arcu eget nisl efficitur, at suscipit mauris congue. Sed eget eros
-          urna. Phasellus suscipit euismod sem in lacinia.
+        <Typography variant="body1" component={"p"} sx={{ whiteSpace: 'pre-wrap' }}>
+          {articleInfo?.content}
         </Typography>
-        <Typography variant="body1" component={"p"}>
-          Morbi consequat risus nec feugiat interdum. Duis malesuada, ex id
-          hendrerit fringilla, libero massa faucibus dui, et pretium nunc velit
-          sed justo. Curabitur consectetur libero eget erat fermentum
-          scelerisque.
-        </Typography>
+
       </Box>
 
       <Divider sx={{ my: 4 }} />
@@ -33,7 +31,7 @@ const page = () => {
       {/* Article Footer */}
       <Box sx={{ textAlign: "center", mt: 2 }}>
         <Typography variant="caption" sx={{ color: "primary.main" }}>
-          © 2024 by Author Name. All rights reserved.
+          © 2024 by {articleInfo?.author}. All rights reserved.
         </Typography>
       </Box>
     </Container>

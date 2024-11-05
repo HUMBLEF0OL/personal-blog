@@ -22,6 +22,9 @@ const Header = () => {
         <Button color="inherit" href="/login">
           LOGIN
         </Button>
+        <Button color="inherit" href="/publish">
+          PUBLISH
+        </Button>
       </Toolbar>
     </AppBar>
   );
