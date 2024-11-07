@@ -5,10 +5,9 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { ArticleData } from "@/interface/article";
+import { ArticleDataType } from "@/interface/article";
 
-
-const ArticleCard: React.FC<{ data: ArticleData }> = ({ data }) => {
+const ArticleCard: React.FC<{ data: ArticleDataType }> = ({ data }) => {
   return (
     <Card
       sx={{
@@ -50,7 +49,9 @@ const ArticleCard: React.FC<{ data: ArticleData }> = ({ data }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" href={`article/${data.id}`}>Read More</Button>
+        <Button size="small" href={`article/${data.id}`}>
+          Read More
+        </Button>
       </CardActions>
     </Card>
   );
