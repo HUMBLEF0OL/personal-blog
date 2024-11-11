@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -51,6 +52,15 @@ const ArticleCard: React.FC<{ data: ArticleDataType }> = ({ data }) => {
       <CardActions>
         <Button size="small" href={`article/${data.id}`}>
           Read More
+        </Button>
+        <Button size="small" onClick={() => {
+          fetch(`http://localhost:5000/article/${data.id}`, {
+            method: 'DELETE'
+          }).then(() => {
+            window.location.reload();
+          })
+        }}>
+          Delete
         </Button>
       </CardActions>
     </Card>

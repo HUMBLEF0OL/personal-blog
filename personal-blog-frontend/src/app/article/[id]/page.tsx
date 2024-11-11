@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Container, Divider } from "@mui/material";
 import articleData from "../../../assets/articles.json";
 const page = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+  const { id } = await params;
   // const articleInfo = articleData.find(current => current.id === id);
 
   const resp = await fetch(`http://localhost:5000/article/${id}`);
