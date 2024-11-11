@@ -5,10 +5,11 @@ import ArticleCard from "@/components/ArticleCard";
 import { ArticleDataType } from "@/interface/article";
 
 export default async function Home() {
-  let articles = {};
+  let articles = [];
   try {
     const resp = await fetch("http://localhost:5000/article/all");
     articles = await resp.json();
+    console.log("articles are: ", articles)
   } catch (err) {
     console.log("no articles exists");
   }
