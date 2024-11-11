@@ -1,10 +1,13 @@
 import React from "react";
 import { Box, Typography, Container, Divider } from "@mui/material";
-import articleData from '../../../assets/articles.json';
-const page = ({ params }: { params: { id: string } }) => {
+import articleData from "../../../assets/articles.json";
+const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
-  const articleInfo = articleData.find(current => current.id === id);
-  console.log("id is ", articleInfo)
+  // const articleInfo = articleData.find(current => current.id === id);
+
+  const resp = await fetch(`http://localhost:5000/article/${id}`);
+  const articleInfo = await resp.json();
+  console.log("id is ", articleInfo);
 
   return (
     <Container maxWidth="md">
@@ -20,10 +23,13 @@ const page = ({ params }: { params: { id: string } }) => {
 
       {/* Article Content */}
       <Box>
-        <Typography variant="body1" component={"p"} sx={{ whiteSpace: 'pre-wrap' }}>
+        <Typography
+          variant="body1"
+          component={"p"}
+          sx={{ whiteSpace: "pre-wrap" }}
+        >
           {articleInfo?.content}
         </Typography>
-
       </Box>
 
       <Divider sx={{ my: 4 }} />

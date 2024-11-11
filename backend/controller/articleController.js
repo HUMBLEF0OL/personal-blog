@@ -99,7 +99,32 @@ const postArticle = (req, res) => {
     });
 };
 
+const getArticle = (req, res) => {
+    const { id } = req.params;
+
+    fs.readFile(filepath, 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(404).json({
+                status: 404,
+                message: 'Article Not Found!'
+            })
+        }
+        const articles = data ? JSON.parse(data) : [];
+        const article = articles.find(current => current.id === id);
+        if (article) {
+            return res.json(article);
+        } else {
+            return res.status(404).json({
+                status: 404,
+                message: 'Article Not Found!'
+            })
+        }
+    })
+
+}
+
 module.exports = {
     getAllArticles,
-    postArticle
+    postArticle,
+    getArticle
 }
