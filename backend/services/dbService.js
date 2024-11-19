@@ -22,11 +22,13 @@ const writeFile = async (fileName, data) => {
     return new Promise((resolve, reject) => {
         fs.writeFile(generateFilePath(fileName), JSON.stringify(data, null, 2), (writeError) => {
             if (writeError) {
-                reject(err);
+                reject(writeError);
+            } else {
+                resolve({
+                    message: 'Filed Saved!'
+                })
             }
-            resolve({
-                messaeg: 'Article Saved!'
-            })
+
         })
     })
 }

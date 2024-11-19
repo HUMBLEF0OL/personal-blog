@@ -4,6 +4,6 @@ const routes = express.Router();
 
 routes.post('/login', login)
 
-routes.post('signup', signup)
+routes.post('/signup', signup)
 
 module.exports = routes

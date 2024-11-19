@@ -48,8 +48,8 @@ const postArticle = async (req, res) => {
         articles.push(articleDetail);
         await writeFile(articlesDB, articleDetail);
         return res.json({
-            status: 500,
-            message: 'Failed to save article'
+            status: 200,
+            message: 'Article saved successfully'
         })
 
     } catch (err) {
