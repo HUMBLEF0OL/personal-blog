@@ -38,7 +38,9 @@ const login = async (req, res) => {
 
     try {
         const response = await authenticateUser(username, password);
-
+        res.cookie('authToken', response.data.token, {
+            maxAge: 60 * 60 * 1000
+        })
         return res.json(response)
     } catch (err) {
         res.status(500).json({
@@ -55,6 +57,9 @@ const signup = async (req, res) => {
         const existingUser = users?.find(current => current.username === username);
         if (existingUser) {
             const loginResponse = await authenticateUser(existingUser.username, existingUser.password);
+            res.cookie('authToken', loginResponse.data.token, {
+                maxAge: 60 * 60 * 1000
+            })
             return res.status(loginResponse.status).json({
                 status: loginResponse.status,
                 message: "User already exists. Logged in successfully.",

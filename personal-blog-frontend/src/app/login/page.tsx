@@ -9,18 +9,35 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-
+import Cookies from "js-cookie";
 const page = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     // Add form submission logic here
-    console.log("Email:", email);
+    console.log("Username:", username);
     console.log("Password:", password);
     console.log("Remember Me:", rememberMe);
+    const resp = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await resp.json();
+    console.log("result is: ", result);
+    var expiryTime = new Date(new Date().getTime() + 60 * 60 * 1000);
+    Cookies.set("token", result.data.token, {
+      expires: expiryTime,
+    });
+    window.location.replace("/");
   };
 
   return (
@@ -60,12 +77,12 @@ const page = () => {
         </Typography>
 
         <TextField
-          label="Email"
-          type="email"
+          label="Username"
+          type="text"
           variant="outlined"
           fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
 

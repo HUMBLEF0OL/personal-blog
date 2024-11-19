@@ -46,7 +46,7 @@ const postArticle = async (req, res) => {
     try {
         let articles = await readFile(articlesDB);
         articles.push(articleDetail);
-        await writeFile(articlesDB, articleDetail);
+        await writeFile(articlesDB, articles);
         return res.json({
             status: 200,
             message: 'Article saved successfully'

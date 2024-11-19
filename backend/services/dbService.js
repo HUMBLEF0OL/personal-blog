@@ -18,20 +18,28 @@ const readFile = async (fileName) => {
     })
 }
 
+const ensureDirectoryExistence = (filePath) => {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+};
+
 const writeFile = async (fileName, data) => {
     return new Promise((resolve, reject) => {
-        fs.writeFile(generateFilePath(fileName), JSON.stringify(data, null, 2), (writeError) => {
+        const filePath = generateFilePath(fileName);
+        ensureDirectoryExistence(filePath);
+        fs.writeFile(filePath, JSON.stringify(data, null, 2), (writeError) => {
             if (writeError) {
                 reject(writeError);
             } else {
                 resolve({
-                    message: 'Filed Saved!'
-                })
+                    message: 'File Saved!',
+                });
             }
-
-        })
-    })
-}
+        });
+    });
+};
 
 module.exports = {
     readFile,

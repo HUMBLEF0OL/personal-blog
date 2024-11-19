@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -6,8 +7,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Cookies from "js-cookie";
 
 const Header = () => {
+  const isLoggedIn = Cookies.get("token"); // Synchronous retrieval
+  console.log("loggedIn: ", isLoggedIn);
   return (
     <AppBar position="sticky" sx={{ height: "65px" }}>
       <Toolbar
@@ -19,12 +23,16 @@ const Header = () => {
         <Button color="inherit" href="/">
           HOME
         </Button>
-        <Button color="inherit" href="/login">
-          LOGIN
-        </Button>
-        <Button color="inherit" href="/publish">
-          PUBLISH
-        </Button>
+        {!isLoggedIn && (
+          <Button color="inherit" href="/login">
+            LOGIN
+          </Button>
+        )}
+        {isLoggedIn && (
+          <Button color="inherit" href="/publish">
+            PUBLISH
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

@@ -55,6 +55,8 @@ const page = () => {
           },
           method: "POST",
         });
+        const result = resp.json();
+        window.location.replace("/");
       } catch (err) {
       } finally {
         setSnackbarInfo({

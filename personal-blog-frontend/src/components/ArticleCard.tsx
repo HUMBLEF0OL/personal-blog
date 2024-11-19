@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -7,8 +7,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { ArticleDataType } from "@/interface/article";
+import Cookies from "js-cookie";
 
 const ArticleCard: React.FC<{ data: ArticleDataType }> = ({ data }) => {
+  const isLoggedIn = Cookies.get("token");
   return (
     <Card
       sx={{
@@ -53,15 +55,20 @@ const ArticleCard: React.FC<{ data: ArticleDataType }> = ({ data }) => {
         <Button size="small" href={`article/${data.id}`}>
           Read More
         </Button>
-        <Button size="small" onClick={() => {
-          fetch(`http://localhost:5000/article/${data.id}`, {
-            method: 'DELETE'
-          }).then(() => {
-            window.location.reload();
-          })
-        }}>
-          Delete
-        </Button>
+        {isLoggedIn && (
+          <Button
+            size="small"
+            onClick={() => {
+              fetch(`http://localhost:5000/article/${data.id}`, {
+                method: "DELETE",
+              }).then(() => {
+                window.location.reload();
+              });
+            }}
+          >
+            Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
